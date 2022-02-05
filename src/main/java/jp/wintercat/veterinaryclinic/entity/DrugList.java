@@ -30,7 +30,7 @@ public class DrugList {
     private String drug_serial;
     @Column(name = "updateTime",nullable = false)
     private Date updateTime;
-    @OneToMany(cascade = {CascadeType.ALL},fetch=FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.ALL},fetch=FetchType.LAZY)
     @JoinColumn(name = "drug_id")
     private List<ClinicalRecords> clinicalRecords;
     // --- --- --- --- ---　--- ---
