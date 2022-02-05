@@ -46,30 +46,37 @@ public class ClinicServiceController {
     public String invoiceUpload(HttpServletRequest request, Model model) {
         if (request.getParameter("visit_name").trim() != "" && request.getParameter("visit_phone").trim() != "") {
             // name and phone check
-            ClinicalRecords clinicalRecords = new ClinicalRecords();
-            clinicalRecords.setDrugList(null);
-            clinicalRecords.setLodging(0);
-            clinicalRecords.setFirstVisit(Integer.parseInt(request.getParameter("first_visit_radio")));
-            clinicalRecords.setMeal(0);
-            // invoice
-            Invoice invoice = new Invoice();
-            invoice.setInvoiceNumber(clinicService.serialCreator(Integer.parseInt(request.getParameter("category"))));
-            invoice.setInvoiceName(request.getParameter("visit_name"));
-            invoice.setInvoiceState(0);
-            invoice.setAnimal(clinicService.searchAnimalById(Integer.parseInt(request.getParameter("category"))));
-            invoice.setPaymentDeadline(null);
-            invoice.setCreateInvoiceDate(new Date());
-            invoice.setUpdateInvoiceDate(null);
-            invoice.setPhone(request.getParameter("visit_phone"));
-            invoice.setTotal(0);
-            invoice.setClinicalRecords(clinicalRecords);
-            clinicService.saveInvoiceApply(invoice);
-            return "/VeterinaryClinic";
+            if(request.getParameter("visit_name").trim().length()<6&&request.getParameter("visit_phone").trim().length()<=13) {
+                // name and phone check
+                ClinicalRecords clinicalRecords = new ClinicalRecords();
+                clinicalRecords.setDrugList(null);
+                clinicalRecords.setLodging(0);
+                clinicalRecords.setFirstVisit(Integer.parseInt(request.getParameter("first_visit_radio")));
+                clinicalRecords.setMeal(0);
+                // invoice
+                Invoice invoice = new Invoice();
+                invoice.setInvoiceNumber(clinicService.serialCreator(Integer.parseInt(request.getParameter("category"))));
+                invoice.setInvoiceName(request.getParameter("visit_name"));
+                invoice.setInvoiceState(0);
+                invoice.setAnimal(clinicService.searchAnimalById(Integer.parseInt(request.getParameter("category"))));
+                invoice.setPaymentDeadline(null);
+                invoice.setCreateInvoiceDate(new Date());
+                invoice.setUpdateInvoiceDate(null);
+                invoice.setPhone(request.getParameter("visit_phone"));
+                invoice.setTotal(0);
+                invoice.setClinicalRecords(clinicalRecords);
+                clinicService.saveInvoiceApply(invoice);
+                return "/VeterinaryClinic";
+            }else {
+                List<Animal> animalList = clinicService.searchAnimalList();
+                model.addAttribute("animal_list", animalList);
+                return "InvoiceApply";
+            }
         } else {
             // 予約ページへ戻る
             List<Animal> animalList = clinicService.searchAnimalList();
             model.addAttribute("animal_list", animalList);
-            return "/InvoiceApply";
+            return "InvoiceApply";
         }
     }
 
