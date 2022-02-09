@@ -46,7 +46,7 @@ public class ClinicServiceController {
     public String invoiceUpload(HttpServletRequest request, Model model) {
         if (request.getParameter("visit_name").trim() != "" && request.getParameter("visit_phone").trim() != "") {
             // name and phone check
-            if(request.getParameter("visit_name").trim().length()<6&&request.getParameter("visit_phone").trim().length()<=13) {
+            if(request.getParameter("visit_name").trim().length()<6&&request.getParameter("visit_phone").trim().length()<=14) {
                 // name and phone check
                 ClinicalRecords clinicalRecords = new ClinicalRecords();
                 clinicalRecords.setDrugList(null);

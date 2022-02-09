@@ -34,7 +34,6 @@ class VeterinaryClinicApplicationTests {
     private ClinicService clinicService;
 
 
-
     @Test
     public void searchClinical() {
         System.out.println(clinicalRecordsRepository.findClinicalRecordsByCid(1L));

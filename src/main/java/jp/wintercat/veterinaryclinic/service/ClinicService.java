@@ -1,6 +1,4 @@
 package jp.wintercat.veterinaryclinic.service;
-
-
 import jp.wintercat.veterinaryclinic.entity.Animal;
 import jp.wintercat.veterinaryclinic.entity.ClinicalRecords;
 import jp.wintercat.veterinaryclinic.entity.DrugList;
